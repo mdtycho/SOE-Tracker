@@ -57,6 +57,8 @@ function ChartComponent(props) {
     useEffect(() => {
         setLoading(true);
 
+        // just a comment
+
         setCid(router.query.cid);
 
 
