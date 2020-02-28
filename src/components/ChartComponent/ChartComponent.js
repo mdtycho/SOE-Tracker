@@ -41,7 +41,9 @@ const useStyles = makeStyles(theme => ({
     title: {
         fontSize: 14,
     },
-    controls: {},
+    controls: {
+        alignItems: 'right',
+    },
     item: {
         paddingBottom: theme.spacing(8),
         marginLeft: theme.spacing(2),
@@ -56,7 +58,7 @@ function ChartComponent(props) {
 
     const [companyData, setCompanyData] = useState([]);
 
-    const [isLine, setIsLine] = useState(true);
+    const [isLine, setIsLine] = useState(false);
 
     const [cid, setCid] = useState('');
 
@@ -113,14 +115,16 @@ function ChartComponent(props) {
                 <Typography variant="h3" className={classes.title} color="textPrimary" gutterBottom>
                     {cid}
                 </Typography>
-                <FormGroup row>
-                    <FormControlLabel
-                        control={
-                            <Switch checked={isLine} onChange={handleChange('line')} value="line" />
-                        }
-                        label="line chart"
-                    />
-                </FormGroup>
+                <div className={classes.controls}>
+                    <FormGroup>
+                        <FormControlLabel
+                            control={
+                                <Switch color="primary" checked={isLine} onChange={handleChange('line')} value="line" />
+                            }
+                            label="line chart"
+                        />
+                    </FormGroup>
+                </div>
                 <GridList cellHeight={220} cols={1}>
                     {fin_info.map((ratio) => (
                         <GridListTile key={ratio} className={classes.item}>
