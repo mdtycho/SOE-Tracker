@@ -27,7 +27,7 @@ function ChartUI(props) {
             <ResponsiveContainer width="80%" height={200}>
                 <BarChart width={730} height={250} data={props.companyData}>
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
+                    <XAxis dataKey="year" />
                     <YAxis />
                     <Tooltip />
                     <Legend />
