@@ -95,7 +95,8 @@ function Navigation(props) {
     };
 
     const handleDrawerClick = () => {
-        history.push("/home")
+        history.push("/home");
+        setOpen(false);
     };
     return (
         <div>

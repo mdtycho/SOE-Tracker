@@ -4,11 +4,17 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 import Typography from '@material-ui/core/Typography';
 
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
+
 import { withFirebase } from '../Firebase';
 
 import Loader from 'react-loader-spinner';
 
-import { LineChart, Line, ResponsiveContainer, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
+import ChartUI from '../ChartUI/ChartUI';
 
 import Container from '@material-ui/core/Container';
 
@@ -36,6 +42,10 @@ const useStyles = makeStyles(theme => ({
         fontSize: 14,
     },
     controls: {},
+    item: {
+        paddingBottom: theme.spacing(8),
+        marginLeft: theme.spacing(2),
+    }
 }));
 
 function ChartComponent(props) {
@@ -46,13 +56,19 @@ function ChartComponent(props) {
 
     const [companyData, setCompanyData] = useState([]);
 
-    const [cid, setCid] = useState('');
+    const [isLine, setIsLine] = useState(true);
 
-    //let { url_cid } = useParams();
+    const [cid, setCid] = useState('');
 
     const theme = useTheme();
 
     const router = useRouter();
+
+    const handleChange = name => event => {
+        setIsLine(!isLine);
+    };
+
+
 
     useEffect(() => {
         setLoading(true);
@@ -72,9 +88,6 @@ function ChartComponent(props) {
                 const companyList = Object.keys(companyObject).map(key => ({
                     ...companyObject[key],
                 }));
-
-                console.log(companyList);
-
                 setCompanyData(companyList);
                 setLoading(false);
             });
@@ -93,22 +106,28 @@ function ChartComponent(props) {
             </div>
         );
     } else if (companyData && cid) {
+        const fin_info = ['total_assets', 'current_assets', 'non_current_assets', 'total_liabilities', 'current_liabilities', 'non_current_liabilities',
+            'equity', 'revenue', 'profit_loss', 'cash_and_equivalents', 'current_ratio', 'debt_ratio', 'roi', 'roe', 'net_profit_margin'];
         return (
             <div className={classes.paper}>
                 <Typography variant="h3" className={classes.title} color="textPrimary" gutterBottom>
                     {cid}
                 </Typography>
-                <ResponsiveContainer width="80%" height={200}>
-                    <LineChart width={730} height={250} data={companyData}
-                        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="year" />
-                        <YAxis />
-                        <Tooltip />
-                        <Legend />
-                        <Line type="monotone" dataKey="profit_loss" stroke={theme.palette.primary.main} />
-                    </LineChart>
-                </ResponsiveContainer>
+                <FormGroup row>
+                    <FormControlLabel
+                        control={
+                            <Switch checked={isLine} onChange={handleChange('line')} value="line" />
+                        }
+                        label="line chart"
+                    />
+                </FormGroup>
+                <GridList cellHeight={220} cols={1}>
+                    {fin_info.map((ratio) => (
+                        <GridListTile key={ratio} className={classes.item}>
+                            <ChartUI ratio={ratio} companyData={companyData} stroke={theme.palette.primary.main} line={isLine} secondary={theme.palette.secondary.main} />
+                        </GridListTile>
+                    ))}
+                </GridList>
             </div>
         );
     } else {

@@ -67,8 +67,6 @@ function CompanyCard(props) {
 
         let profit = Number(newObj[years[0]]['profit_loss']);
 
-        console.log(profit);
-
         return profit >= 0 ? true : false;
     };
 
