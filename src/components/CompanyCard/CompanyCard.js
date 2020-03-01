@@ -94,16 +94,6 @@ function CompanyCard(props) {
         });
     };
 
-    let getChartistData = () => {
-        let dataObject = {};
-
-        dataObject['labels'] = getLabels();
-
-        dataObject['series'] = getSeries();
-
-        return dataObject;
-    };
-
     return (
         <Card className={clsx(classes.root, classes.pos, profitable ? classes.profitable : classes.unprofitable)}>
             <CardContent className={classes.card}>
@@ -118,7 +108,7 @@ function CompanyCard(props) {
                 </Sparklines>
             </CardContent>
             <CardActions>
-                <Button onClick={handleClick} size="small">See chart</Button>
+                <Button onClick={handleClick} size="small">See charts</Button>
             </CardActions>
         </Card>
     );
