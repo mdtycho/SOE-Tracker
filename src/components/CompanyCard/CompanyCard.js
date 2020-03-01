@@ -8,6 +8,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
+import { Sparklines, SparklinesLine, SparklinesBars } from 'react-sparklines';
+
 const useStyles = makeStyles((theme) => ({
     root: {
         minWidth: 48,
@@ -70,12 +72,50 @@ function CompanyCard(props) {
         return profit >= 0 ? true : false;
     };
 
+    let getLabels = () => {
+        let newObj = JSON.parse(JSON.stringify(props.company));
+
+        delete newObj['cid'];
+
+        let years = Object.keys(newObj).sort((a, b) => { return (Number(b) - Number(a)) });
+
+        return years;
+    };
+
+    let getSeries = () => {
+        let newObj = JSON.parse(JSON.stringify(props.company));
+
+        delete newObj['cid'];
+
+        let years = Object.keys(newObj).sort((a, b) => { return (Number(a) - Number(b)) });
+
+        return years.map((key) => {
+            return newObj[key]['profit_loss'];
+        });
+    };
+
+    let getChartistData = () => {
+        let dataObject = {};
+
+        dataObject['labels'] = getLabels();
+
+        dataObject['series'] = getSeries();
+
+        return dataObject;
+    };
+
     return (
-        <Card className={clsx(classes.root, classes.pos, profitable ? classes.profitable : classes.unprofitable)} >
+        <Card className={clsx(classes.root, classes.pos, profitable ? classes.profitable : classes.unprofitable)}>
             <CardContent className={classes.card}>
                 <Typography variant="h1" className={classes.title} color="textPrimary" gutterBottom>
                     {props.company['cid']}
                 </Typography>
+            </CardContent>
+            <CardContent chart>
+                <Sparklines data={getSeries()}>
+                    <SparklinesLine />
+                    <SparklinesBars />
+                </Sparklines>
             </CardContent>
             <CardActions>
                 <Button onClick={handleClick} size="small">See chart</Button>
