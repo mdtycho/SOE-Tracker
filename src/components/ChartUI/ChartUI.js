@@ -1,5 +1,5 @@
 import React from 'react';
-import { LineChart, Bar, BarChart, Line, ResponsiveContainer, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ComposedChart } from 'recharts';
+import { LineChart, Bar, BarChart, Line, ResponsiveContainer, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 
 import { round } from 'mathjs';
 

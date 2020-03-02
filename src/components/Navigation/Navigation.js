@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -17,9 +17,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
-import * as ROUTES from '../../constants/routes';
-
-import Button from '@material-ui/core/Button';
 
 import Grid from '@material-ui/core/Grid';
 
@@ -111,14 +108,14 @@ function Navigation(props) {
     };
     return (
         <div>
-            <AppBar
+            <AppBar id="back-to-top-anchor"
                 position="sticky"
                 className={clsx(classes.appBar, {
                     [classes.appBarShift]: open,
                 })}
             >
                 <Toolbar>
-                    <Grid justify="space-between" container spacing={20}
+                    <Grid justify="space-between" container spacing={10}
                         direction="row" alignItems="center"
                     >
                         <Grid item>

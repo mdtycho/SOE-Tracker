@@ -5,18 +5,9 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
-import cyan from '@material-ui/core/colors/cyan';
-
-import orange from '@material-ui/core/colors/orange';
-
 import Navigation from '../Navigation/Navigation';
-import LandingPage from '../Landing/Landing';
 import SignUpPage from "../Signup/Signup";
-import SignInPage from '../Signin/Signin';
-import PasswordForgetPage from '../PasswordForget/PasswordForget';
 import HomePage from '../Home/Home';
-import AccountPage from '../Account/Account';
-import AdminPage from '../Admin/Admin';
 import ChartRouter from '../ChartRouter/ChartRouter';
 
 

@@ -1,6 +1,6 @@
 import { useParams, useLocation, useHistory, useRouteMatch } from 'react-router-dom';
 import queryString from 'query-string';
-import React, { useState, useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 
 // Hook
 export default function useRouter() {

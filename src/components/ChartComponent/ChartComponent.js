@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import clsx from 'clsx';
+
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 import Typography from '@material-ui/core/Typography';
@@ -19,11 +19,12 @@ import ChartUI from '../ChartUI/ChartUI';
 import Container from '@material-ui/core/Container';
 
 import Backdrop from '@material-ui/core/Backdrop';
-import { CssBaseline } from '@material-ui/core';
-
-import { useHistory, useParams } from 'react-router-dom';
 
 import useRouter from '../../hooks/useRouter';
+
+import Fab from '@material-ui/core/Fab';
+
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
 const useStyles = makeStyles(theme => ({
     root: { flexGrow: 1, },
@@ -66,11 +67,26 @@ function ChartComponent(props) {
 
     const router = useRouter();
 
+    const style = {
+        margin: 0,
+        top: 'auto',
+        right: 20,
+        bottom: 20,
+        left: 'auto',
+        position: 'fixed',
+    };
+
     const handleChange = name => event => {
         setIsLine(!isLine);
     };
 
+    const handleFabClick = event => {
+        const anchor = (event.target.ownerDocument || document).querySelector('#back-to-top-anchor');
 
+        if (anchor) {
+            anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    };
 
     useEffect(() => {
         setLoading(true);
@@ -95,7 +111,7 @@ function ChartComponent(props) {
             });
 
         return () => { props.firebase.company(cid).off() }
-    }, [props.firebase]);
+    }, [props.firebase, cid, router.query.cid]);
 
     if (loading) {
         return (
@@ -132,6 +148,9 @@ function ChartComponent(props) {
                         </GridListTile>
                     ))}
                 </GridList>
+                <Fab color="primary" style={style} onClick={handleFabClick} size="large" aria-label="scroll back to top">
+                    <KeyboardArrowUpIcon />
+                </Fab>
             </div>
         );
     } else {

@@ -79,10 +79,10 @@ function HomePage(props) {
                 <Grid container spacing={3}>
                     {companiesRender}
                 </Grid>
-                <Typography variant="body" className={classes.title} color="textSecondary" gutterBottom>
+                <Typography variant="body1" className={classes.title} color="textSecondary" gutterBottom>
                     Red indicates the company made a loss during their most recent financial year, green represents break-even or better.
-                    <br />
-                    <br />
+                </Typography>
+                <Typography variant='body2' className={classes.title} color="textSecondary" gutterBottom>
                     More data will be added soon, keep checking the page for updates!
                 </Typography>
             </div>
