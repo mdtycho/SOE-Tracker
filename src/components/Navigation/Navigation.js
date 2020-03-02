@@ -136,7 +136,7 @@ function Navigation(props) {
                             </Typography>
                         </Grid>
                         <Grid item>
-                            <a href="https://www.freemarketfoundation.com/">
+                            <a href="https://www.freemarketfoundation.com/" target="_blank">
                                 <img src={Logo} alt="FMF logo." className={classes.logo_fmf} />
                             </a>
                         </Grid>

@@ -43,6 +43,10 @@ function ChartUI(props) {
         }
     };
 
+    const renderSecondLine = (finVar) => {
+        //todo
+    };
+
     if (props.line) {
         return (
             <ResponsiveContainer width="80%" height={200}>
