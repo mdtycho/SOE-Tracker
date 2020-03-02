@@ -81,8 +81,9 @@ const useStyles = makeStyles(theme => ({
     paddingBar: {
         paddingBottom: theme.spacing(6),
     },
-    bar_end: {
-        position: 'relative',
+    logo_fmf: {
+        maxWidth: 42,
+        marginRight: theme.spacing(2),
     },
 }));
 
@@ -115,7 +116,7 @@ function Navigation(props) {
                 })}
             >
                 <Toolbar>
-                    <Grid justify="space-between" container spacing={10}
+                    <Grid justify="space-between" container spacing={2}
                         direction="row" alignItems="center"
                     >
                         <Grid item>
@@ -136,7 +137,7 @@ function Navigation(props) {
                         </Grid>
                         <Grid item>
                             <a href="https://www.freemarketfoundation.com/">
-                                <img src={Logo} alt="FMF logo." width="42" height="21" />
+                                <img src={Logo} alt="FMF logo." className={classes.logo_fmf} />
                             </a>
                         </Grid>
                     </Grid>
