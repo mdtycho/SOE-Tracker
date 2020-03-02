@@ -101,7 +101,7 @@ function CompanyCard(props) {
                     {props.company['cid']}
                 </Typography>
             </CardContent>
-            <CardContent chart>
+            <CardContent>
                 <Sparklines data={getSeries()}>
                     <SparklinesLine />
                     <SparklinesBars />

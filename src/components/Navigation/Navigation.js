@@ -4,7 +4,6 @@ import { Link, useHistory } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
@@ -19,6 +18,12 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
 import * as ROUTES from '../../constants/routes';
+
+import Button from '@material-ui/core/Button';
+
+import Grid from '@material-ui/core/Grid';
+
+import Logo from './logosmall.png';
 
 const drawerWidth = 240;
 
@@ -76,6 +81,12 @@ const useStyles = makeStyles(theme => ({
         }),
         marginLeft: theme.spacing(0),
     },
+    paddingBar: {
+        paddingBottom: theme.spacing(6),
+    },
+    bar_end: {
+        position: 'relative',
+    },
 }));
 
 
@@ -100,30 +111,38 @@ function Navigation(props) {
     };
     return (
         <div>
-            <ul>
-                <li>
-                    <Link to={ROUTES.HOME}>Home</Link>
-                </li>
-            </ul>
             <AppBar
-                position="fixed"
+                position="sticky"
                 className={clsx(classes.appBar, {
                     [classes.appBarShift]: open,
                 })}
             >
                 <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        edge="start"
-                        className={clsx(classes.menuButton, open && classes.hide)}
+                    <Grid justify="space-between" container spacing={20}
+                        direction="row" alignItems="center"
                     >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" noWrap>
-                        SOE Tracker
-          </Typography>
+                        <Grid item>
+                            <IconButton
+                                color="inherit"
+                                aria-label="open drawer"
+                                onClick={handleDrawerOpen}
+                                edge="start"
+                                className={clsx(classes.menuButton, open && classes.hide)}
+                            >
+                                <MenuIcon />
+                            </IconButton>
+                        </Grid>
+                        <Grid item>
+                            <Typography variant="h6" noWrap>
+                                SOE Tracker
+                            </Typography>
+                        </Grid>
+                        <Grid item>
+                            <a href="https://www.freemarketfoundation.com/">
+                                <img src={Logo} alt="FMF logo." width="42" height="21" />
+                            </a>
+                        </Grid>
+                    </Grid>
                 </Toolbar>
             </AppBar>
             <Drawer

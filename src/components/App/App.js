@@ -54,7 +54,6 @@ function App(props) {
                     <div>
                         <Navigation />
 
-                        <hr />
                         <Route exact path={ROUTES.LANDING} component={HomePage} />
                         <Route path={ROUTES.HOME} component={HomePage} />
                         <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
