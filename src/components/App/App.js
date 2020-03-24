@@ -8,6 +8,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Navigation from '../Navigation/Navigation';
 import SignUpPage from "../Signup/Signup";
 import HomePage from '../Home/Home';
+import About from '../About/About';
 import ChartRouter from '../ChartRouter/ChartRouter';
 
 
@@ -48,6 +49,7 @@ function App(props) {
                         <Route exact path={ROUTES.LANDING} component={HomePage} />
                         <Route path={ROUTES.HOME} component={HomePage} />
                         <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
+                        <Route path={ROUTES.ABOUT} component={About} />
 
                         <Route path={ROUTES.CHART} component={ChartRouter} />
                     </div>

@@ -17,12 +17,14 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
+import InfoIcon from '@material-ui/icons/Info';
 
 import Grid from '@material-ui/core/Grid';
 
 import Logo from './logosmall.png';
+import { CssBaseline } from '@material-ui/core';
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -83,7 +85,6 @@ const useStyles = makeStyles(theme => ({
     },
     logo_fmf: {
         maxWidth: 42,
-        marginRight: theme.spacing(2),
     },
 }));
 
@@ -103,14 +104,27 @@ function Navigation(props) {
         setOpen(false);
     };
 
-    const handleDrawerClick = () => {
-        history.push("/home");
+    const handleDrawerClick = (text) => {
+        if (text == 'Home') {
+            history.push("/home");
+        } else {
+            history.push("/about");
+        }
         setOpen(false);
     };
+
+    const getIcon = (text) => {
+        if (text == 'Home') {
+            return <HomeIcon />
+        } else {
+            return <InfoIcon />
+        }
+    };
     return (
-        <div>
+        <div className={classes.root}>
+            <CssBaseline />
             <AppBar id="back-to-top-anchor"
-                position="sticky"
+                position="fixed"
                 className={clsx(classes.appBar, {
                     [classes.appBarShift]: open,
                 })}
@@ -159,9 +173,9 @@ function Navigation(props) {
                 </div>
                 <Divider />
                 <List>
-                    {['Home'].map((text, index) => (
-                        <ListItem button key={text} onClick={handleDrawerClick}>
-                            <ListItemIcon>{<HomeIcon />}</ListItemIcon>
+                    {['Home', 'About'].map((text, index) => (
+                        <ListItem button key={text} onClick={() => handleDrawerClick(text)}>
+                            <ListItemIcon>{getIcon(text)}</ListItemIcon>
                             <ListItemText primary={text} />
                         </ListItem>
                     ))}
