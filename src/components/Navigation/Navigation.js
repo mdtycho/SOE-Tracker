@@ -146,7 +146,7 @@ function Navigation(props) {
                         </Grid>
                         <Grid item>
                             <Typography variant="h6" noWrap>
-                                SOE Tracker
+                                Tracker
                             </Typography>
                         </Grid>
                         <Grid item>

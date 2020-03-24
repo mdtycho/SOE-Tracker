@@ -19,8 +19,9 @@ import Grid from '@material-ui/core/Grid';
 const useStyles = makeStyles(theme => ({
     root: {
         flexGrow: 1,
-        paddingLeft: theme.spacing(1),
-        paddingRight: theme.spacing(1),
+        marginTop: theme.spacing(8),
+        paddingLeft: theme.spacing(2),
+        paddingRight: theme.spacing(2),
     },
     backdrop: {
         zIndex: theme.zIndex.drawer + 1,
@@ -76,7 +77,7 @@ function HomePage(props) {
         );
         return (
             <div className={classes.root} >
-                <Grid container spacing={3}>
+                <Grid container spacing={2}>
                     {companiesRender}
                 </Grid>
                 <Typography variant="body1" className={classes.title} color="textSecondary" gutterBottom>

@@ -1,9 +1,5 @@
 import React from 'react';
 
-import Loader from 'react-loader-spinner';
-
-import Backdrop from '@material-ui/core/Backdrop';
-
 import Typography from '@material-ui/core/Typography';
 
 import { makeStyles } from '@material-ui/core/styles';
