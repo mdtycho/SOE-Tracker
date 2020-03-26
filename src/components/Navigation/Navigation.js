@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import clsx from 'clsx';
@@ -18,6 +18,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
 import InfoIcon from '@material-ui/icons/Info';
+import GetAppIcon from '@material-ui/icons/GetApp';
+import Conditional from 'react-simple-conditional';
 
 import Grid from '@material-ui/core/Grid';
 
@@ -93,8 +95,26 @@ function Navigation(props) {
 
     const classes = useStyles();
     const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
+    const [dndButton, setDnd] = useState(false);
+    const [installPrompt, setInstallPrompt] = useState(null);
     const history = useHistory();
+
+    useEffect(() => {
+        console.log("Listening for Install prompt");
+        window.addEventListener('beforeinstallprompt', e => {
+            // For older browsers
+            e.preventDefault();
+            console.log("Install Prompt fired");
+            setInstallPrompt(e);
+            // See if the app is already installed, in that case, do nothing
+            if ((window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true) {
+                return false;
+            }
+            // Set the state variable to make button visible
+            setDnd(true);
+        })
+    })
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -104,20 +124,60 @@ function Navigation(props) {
         setOpen(false);
     };
 
+    const installApp = async () => {
+        if (!installPrompt) return false;
+        installPrompt.prompt();
+        let outcome = await installPrompt.userChoice;
+        if (outcome.outcome === 'accepted') {
+            console.log("App Installed")
+        }
+        else {
+            console.log("App not installed");
+        }
+        // Remove the event reference
+        setInstallPrompt(null);
+        // Hide the button
+        setDnd(false);
+    }
+
     const handleDrawerClick = (text) => {
-        if (text == 'Home') {
+        if (text === 'Home') {
             history.push("/home");
-        } else {
+        } else if (text === 'About') {
             history.push("/about");
+        } else if (text === 'Download') {
+            installApp();
         }
         setOpen(false);
     };
 
     const getIcon = (text) => {
-        if (text == 'Home') {
+        if (text === 'Home') {
             return <HomeIcon />
-        } else {
+        } else if (text === 'About') {
             return <InfoIcon />
+        } else if (text === 'Download') {
+            return <GetAppIcon />
+        }
+    };
+
+    const getLayout = (text) => {
+        if (text === 'Download') {
+            return (
+                <Conditional condition={dndButton}>
+                    <ListItem button key={text} onClick={() => handleDrawerClick(text)}>
+                        <ListItemIcon>{getIcon(text)}</ListItemIcon>
+                        <ListItemText primary={text} />
+                    </ListItem>
+                </Conditional>
+            );
+        } else {
+            return (
+                <ListItem button key={text} onClick={() => handleDrawerClick(text)}>
+                    <ListItemIcon>{getIcon(text)}</ListItemIcon>
+                    <ListItemText primary={text} />
+                </ListItem>
+            );
         }
     };
     return (
@@ -150,7 +210,7 @@ function Navigation(props) {
                             </Typography>
                         </Grid>
                         <Grid item>
-                            <a href="https://www.freemarketfoundation.com/" target="_blank">
+                            <a href="https://www.freemarketfoundation.com/" target="_blank" rel="noopener noreferrer">
                                 <img src={Logo} alt="FMF logo." className={classes.logo_fmf} />
                             </a>
                         </Grid>
@@ -173,11 +233,8 @@ function Navigation(props) {
                 </div>
                 <Divider />
                 <List>
-                    {['Home', 'About'].map((text, index) => (
-                        <ListItem button key={text} onClick={() => handleDrawerClick(text)}>
-                            <ListItemIcon>{getIcon(text)}</ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
+                    {['Home', 'About', 'Download'].map((text, index) => (
+                        getLayout(text)
                     ))}
                 </List>
                 <Divider />

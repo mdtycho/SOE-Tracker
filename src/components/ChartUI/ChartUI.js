@@ -43,9 +43,9 @@ function ChartUI(props) {
         }
     };
 
-    const renderSecondLine = (finVar) => {
+    /*const renderSecondLine = (finVar) => {
         //todo
-    };
+    };*/
 
     if (props.line) {
         return (
