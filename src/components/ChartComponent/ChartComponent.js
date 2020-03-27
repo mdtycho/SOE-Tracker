@@ -128,7 +128,7 @@ function ChartComponent(props) {
             'equity', 'revenue', 'profit_loss', 'cash_and_equivalents', 'current_ratio', 'debt_ratio', 'roi', 'roe', 'net_profit_margin'];
         return (
             <div className={classes.paper}>
-                <Typography variant="h3" className={classes.title} color="textPrimary" gutterBottom>
+                <Typography variant="h1" className={classes.title} color="textPrimary" gutterBottom id="back-to-top-anchor">
                     {cid}
                 </Typography>
                 <div className={classes.controls}>
